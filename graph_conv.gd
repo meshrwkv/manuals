@@ -1,11 +1,11 @@
 extends Node
 
-var conv: GraphConv
+var conv: SAGEConv
 
 func _ready() -> void:
     var in_channels: int = # Define your input channels
     var out_channels: int = # Define your output channels
-    conv = GraphConv.new(in_channels, out_channels)
+    conv = SAGEConv.new(in_channels, out_channels)
 
 func get_mesh_data(mesh: Mesh) -> Dictionary:
     var tool: MeshDataTool = MeshDataTool.new()
@@ -56,7 +56,7 @@ func forward(data: Dictionary) -> Array:
     var x: Array = data["x"]
     var edge_index: Array = data["edge_index"]
 
-    # Apply graph convolution
+    # Apply SAGEConv
     x = conv.forward(x, edge_index)
 
     return x
