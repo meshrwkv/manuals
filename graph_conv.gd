@@ -10,11 +10,12 @@ func _ready() -> void:
 func get_mesh_data(mesh: Mesh) -> Dictionary:
     var tool: MeshDataTool = MeshDataTool.new()
     tool.create_from_surface(mesh, 0)
-    
+
     var vertices: Array = []
     var edges: Array = []
     var normals: Array = []
     var areas: Array = []
+    var angles: Array = []
 
     for i in range(tool.get_vertex_count()):
         vertices.append(tool.get_vertex(i))
@@ -29,6 +30,11 @@ func get_mesh_data(mesh: Mesh) -> Dictionary:
         normals.append(tool.get_face_normal(i))
         areas.append(tool.get_face_area(i))
 
+        # Calculate angles between edges
+        var face_vertices: Array = tool.get_face_vertices(i)
+        var angle: float = face_vertices[0].angle_to(face_vertices[1])
+        angles.append(angle)
+
     # Order faces based on their lowest vertex index
     var faces: Array = []
     for i in range(tool.get_face_count()):
@@ -36,7 +42,7 @@ func get_mesh_data(mesh: Mesh) -> Dictionary:
         face_vertices.sort()
         faces.append(face_vertices)
 
-    return {"vertices": vertices, "edges": edges, "normals": normals, "areas": areas, "faces": faces}
+    return {"vertices": vertices, "edges": edges, "normals": normals, "areas": areas, "faces": faces, "angles": angles}
 
 func compare_vertices(a: Vector3, b: Vector3) -> int:
     if a.z != b.z:
@@ -52,7 +58,7 @@ func forward(data: Dictionary) -> Array:
 
     # Apply graph convolution
     x = conv.forward(x, edge_index)
-    
+
     return x
 
 ## Citations
