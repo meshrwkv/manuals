@@ -1,11 +1,17 @@
 extends Node
 
 var conv: SAGEConv
+var codebook: Codebook  # Assuming you have a Codebook class for RQ
+var decoder: Decoder  # Assuming you have a Decoder class for decoding embeddings
+
 
 func _ready() -> void:
     var in_channels: int = # Define your input channels
     var out_channels: int = # Define your output channels
     conv = SAGEConv.new(in_channels, out_channels)
+    codebook = Codebook.new()  # Initialize your codebook
+    decoder = Decoder.new()  # Initialize your decoder
+
 
 func get_mesh_data(mesh: Mesh) -> Dictionary:
     var tool: MeshDataTool = MeshDataTool.new()
@@ -44,6 +50,7 @@ func get_mesh_data(mesh: Mesh) -> Dictionary:
 
     return {"vertices": vertices, "edges": edges, "normals": normals, "areas": areas, "faces": faces, "angles": angles}
 
+
 func compare_vertices(a: Vector3, b: Vector3) -> int:
     if a.z != b.z:
         return a.z < b.z ? -1 : 1
@@ -52,6 +59,7 @@ func compare_vertices(a: Vector3, b: Vector3) -> int:
     else:
         return a.x < b.x ? -1 : 1
 
+
 func forward(data: Dictionary) -> Array:
     var x: Array = data["x"]
     var edge_index: Array = data["edge_index"]
@@ -59,7 +67,14 @@ func forward(data: Dictionary) -> Array:
     # Apply SAGEConv
     x = conv.forward(x, edge_index)
 
-    return x
+    # Perform RQ and get tokens
+    var tokens: Array = codebook.quantize(x)
+
+    # Decode the quantized embeddings
+    var reconstructed_mesh: Mesh = decoder.decode(tokens)
+
+    return reconstructed_mesh
+
 
 ## Citations
 
