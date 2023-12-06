@@ -20,7 +20,7 @@ property list uchar int vertex_index
 property float nx
 property float ny
 property float nz
-property float area
+property float area_meters
 property list uchar float edge_angle_degrees
 
 element geometry_embedding 4
