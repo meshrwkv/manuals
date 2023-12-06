@@ -39,3 +39,21 @@ These are representations of geometric data (in your case, polygons) in a high-d
 In your context, each polygon is represented as a node in a graph, with certain attributes (x, y, z coordinates, area, normal, angle).
 
 To implement this, you could use an architecture similar to a **Sequence-to-Sequence (Seq2Seq) model**, which is commonly used for tasks like machine translation, where an input sequence (source language sentence) is transformed into an output sequence (target language sentence).
+
+## Training Different Components
+
+You're training three different components in your system:
+
+### 1. Code Book Training
+
+A code book is a type of dictionary used for vector quantization. It's a set of representative vectors (code vectors) that can be used to approximate the vectors in your data. The goal of training a code book is to find the best set of code vectors for your data.
+
+### 2. Polygon Sequence Auto-Regressive Generation
+
+This involves generating a sequence of polygons based on previous polygons in the sequence. This is an auto-regressive task because the generation of each polygon depends on the polygons that have been generated so far.
+
+### 3. Sequence to Ply
+
+This involves converting a sequence of polygons into a .ply file. The .ply format is a common format for storing 3D data, and it can store both the geometric data (vertices, edges, faces) and associated attributes.
+
+Each of these components plays a different role in your system, and they need to be trained separately. However, they are all interconnected, and the performance of one component can affect the performance of the others. Therefore, it's important to carefully tune the parameters of each component and evaluate the system as a whole.
