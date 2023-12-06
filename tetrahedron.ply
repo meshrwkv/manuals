@@ -9,14 +9,12 @@ property list uchar int vertex_index
 property float nx
 property float ny
 property float nz
-property float area
-property float angle
 end_header
 0 0 0
 1 0 0
 0 1 0
 0 0 1
-3 0 1 2 0 0 -1 0.43 1.05
-3 0 1 3 0 -1 0 0.43 1.05
-3 0 2 3 -1 0 0 0.43 1.05
-3 1 2 3 0 0 1 0.43 1.05
+3 0 1 2 0 0 1
+3 0 1 3 0 1 0
+3 0 2 3 1 0 0
+3 1 2 3 0 0 -1

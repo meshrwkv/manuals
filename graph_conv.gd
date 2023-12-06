@@ -66,6 +66,7 @@ func _ready() -> void:
 
     return reconstructed_mesh
 
+
 func get_mesh_data(mesh: Mesh) -> Dictionary:
     var tool: MeshDataTool = MeshDataTool.new()
     tool.create_from_surface(mesh, 0)
@@ -77,11 +78,17 @@ func get_mesh_data(mesh: Mesh) -> Dictionary:
             vertices.append(tool.get_vertex(tool.get_face_vertex(i, j)))
         var normal: Vector3 = tool.get_face_normal(i)
         var area: float = normal.length() / 2.0
-        var angle: float = normal.angle_to(Vector3.UP)
+
+        # Calculate the three angles of the triangle
+        var angles: Array = []
+        for j in range(3):
+            var v1: Vector3 = vertices[j] - vertices[(j+1)%3]
+            var v2: Vector3 = vertices[j] - vertices[(j+2)%3]
+            angles.append(v1.angle_to(v2))
+
         faces.append({
-            "index": i,
             "vertices": vertices,
-            "data": FaceData.new(vertices, normal, area, angle)
+            "data": FaceData.new(vertices, normal, area, angles)
         })
 
     var face_data_array: Array = []
@@ -94,6 +101,7 @@ func get_mesh_data(mesh: Mesh) -> Dictionary:
         "faces": faces,
         "adjacency_matrix": connectivity_data.get_adjacency_matrix()
     }
+
 
 ## Citations
 
