@@ -94,9 +94,9 @@ property float embedding_63
 element bone 3
 property int bone_index
 property char[20] bone_name
-property list uchar float bone_position
-property list uchar float bone_rotation
-property list uchar float bone_scale
+property list uchar float bone_translation_local
+property list uchar float bone_rotation_local
+property list uchar float bone_scale_local
 
 end_header
 
