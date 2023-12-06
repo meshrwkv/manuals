@@ -1,0 +1,44 @@
+input_features:
+  -
+    name: sequence_vector
+    type: sequence
+    encoder: 
+      type: transformer
+      dropout: 0.1
+      num_layers: 1
+      embedding_size: 256
+      output_size: 256
+      norm: null
+      num_fc_layers: 0
+      fc_dropout: 0.0
+      hidden_size: 256
+      transformer_output_size: 256
+      fc_activation: relu
+      representation: dense
+      use_bias: true
+      bias_initializer: zeros
+      weights_initializer: xavier_uniform
+      embeddings_on_cpu: false
+      embeddings_trainable: true
+      reduce_output: last
+      norm_params: null
+      fc_layers: null
+      num_heads: 8
+      pretrained_embeddings: null
+
+output_features:
+  -
+    name: polygon_sequence
+    type: sequence
+    decoder: transformer
+    cell_type: lstm
+    reduce_output: null
+  -
+    name: connectivity_sequence
+    type: sequence
+    decoder: transformer
+    cell_type: lstm
+    reduce_output: null
+
+training:
+  epochs: 10
