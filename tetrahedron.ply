@@ -1,0 +1,26 @@
+ply
+format ascii 1.0
+
+element geometry_embedding 4
+property int index
+property float gx
+property float gy
+property float gz
+
+element vertex 4
+property float x
+property float y
+property float z
+property int geometry_embedding_index
+
+end_header
+
+1 -0.24 0.68 0.45
+2 0.35 -0.55 0.85
+1 -0.76 0.33 -0.12
+1 0.59 -0.47 -0.66
+
+0 1 0 0
+1 1 0 1
+0 2 0 2
+0 1 1 3
