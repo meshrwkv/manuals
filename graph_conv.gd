@@ -66,7 +66,32 @@ func _ready() -> void:
 
     return reconstructed_mesh
 
-
+# {
+#     "faces": [
+#         {
+#             "vertices": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(0, 1, 0)],
+#             "data": FaceData([Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(0, 1, 0)], Vector3(0, 0, 1), 0.5, [1.5708, 0, 0])
+#         },
+#         {
+#             "vertices": [Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1)],
+#             "data": FaceData([Vector3(0, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1)], Vector3(-1, 0, 0), 0.5, [1.5708, 0, 0])
+#         },
+#         {
+#             "vertices": [Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(0, 0, 1)],
+#             "data": FaceData([Vector3(0, 0, 0), Vector3(1, 0, 0), Vector3(0, 0, 1)], Vector3(0, -1, 0), 0.5, [1.5708, 0, 0])
+#         },
+#         {
+#             "vertices": [Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1)],
+#             "data": FaceData([Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1)], Vector3(1/3, 1/3, 1/3), 0.5, [1.5708, 0, 0])
+#         }
+#     ],
+#     "adjacency_matrix": [
+#         [0, 1, 1, 1],
+#         [1, 0, 1, 1],
+#         [1, 1, 0, 1],
+#         [1, 1, 1, 0]
+#     ]
+# }
 func get_mesh_data(mesh: Mesh) -> Dictionary:
     var tool: MeshDataTool = MeshDataTool.new()
     tool.create_from_surface(mesh, 0)
