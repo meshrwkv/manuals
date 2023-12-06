@@ -58,14 +58,14 @@ This involves converting a sequence of polygons into a .ply file. The .ply forma
 
 Each of these components plays a different role in your system, and they need to be trained separately. However, they are all interconnected, and the performance of one component can affect the performance of the others. Therefore, it's important to carefully tune the parameters of each component and evaluate the system as a whole.
 
-### Refining the Codebook Initialization and Embedding Technique
+### Codebook Initialization and Embedding Technique
 
-When dealing with large datasets comprising millions of objects, each with numerous polygons, the process of codebook initialization and embedding becomes crucial. Here's a consolidated approach to handle such data:
+When dealing with large datasets comprising millions of objects, each with numerous polygons, the process of codebook initialization and embedding becomes crucial.
 
-The initial codebook is created from a subset of these million objects. Each entry in this codebook stores one polygon and its connectivity, capturing the relationships between different polygons in an object. The selection should be representative enough to capture the diversity in the data. This codebook is then refined iteratively until it converges to a stable state.
+The initial codebook is created from a subset of these million objects. Each entry in this codebook stores one polygon and its connectivity, capturing the relationships between different polygons in an object. 
 
-We map the codebook to Graph Convolutional Network (GCN) embeddings. The GCN operates directly on graphs and generates embeddings for nodes in the graph. These embeddings are learned during training and can capture complex patterns in the graph structure.
+This codebook is then refined iteratively until it converges to a stable state.
 
-The sequence of vectors from this final codebook is converted into a PLY file using the `sequence_to_ply(sequence)` function. This step allows us to visualize the 3D polygon data of the objects along with their connectivity, providing a visual understanding of the data we are working with.
+We map the codebook to Graph Convolutional Network (GCN) embeddings. The GCN operates directly on graphs and generates embeddings for nodes in the graph. 
 
-In conclusion, initializing a codebook with face polygon data and its connectivity, refining it, converting the sequence to a PLY file, and finally mapping the initial codebook to GCN embeddings, is a powerful method for handling large datasets with complex structures. It can lead to better performance in tasks such as object recognition or classification, especially when dealing with a large number of objects each with numerous polygons.
+In conclusion, initializing a codebook with face polygon data and its connectivity, refining it, mapping the initial codebook to GCN embeddings, and finally visualizing the data, is a powerful method for handling large datasets with complex structures. It can lead to better performance in tasks such as object recognition or classification, especially when dealing with a large number of objects each with numerous polygons.
