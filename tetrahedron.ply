@@ -1,26 +1,36 @@
 ply
 format ascii 1.0
 
+element vertex 4
+property float x
+property float y
+property float z
+
+element face 4
+property list uchar int vertex_index
+property float nx
+property float ny
+property float nz
+
 element geometry_embedding 4
 property int index
 property float gx
 property float gy
 property float gz
 
-element vertex 4
-property float x
-property float y
-property float z
-property int geometry_embedding_index
-
 end_header
 
-1 -0.24 0.68 0.45
-2 0.35 -0.55 0.85
-1 -0.76 0.33 -0.12
-1 0.59 -0.47 -0.66
+0 0 0
+1 0 0
+0 1 0
+0 0 1
 
-0 1 0 0
-1 1 0 1
-0 2 0 2
-0 1 1 3
+3 0 1 2 0 0 1
+3 0 1 3 0 1 0
+3 0 2 3 1 0 0
+3 1 2 3 0 0 -1
+
+1 0.5 0.6 0.7
+2 0.1 0.2 0.3
+3 0.4 0.5 0.6
+4 0.7 0.8 0.9
