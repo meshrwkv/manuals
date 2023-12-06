@@ -6,10 +6,13 @@ var area: float
 var angle: float
 
 func _init(_vertices: PackedVector3Array, _normal: Vector3, _area: float, _angle: float) -> void:
-    if _vertices.size() > 4 or _vertices.size() < 1:
-        print("Only points, lines, triangles or quads are supported")
+    if _vertices.size() > 4 or _vertices.size() < 0:
+        print("Only empty shapes, points, lines, triangles or quads are supported")
         return
     match _vertices.size():
+        0: # Empty shape
+            for i in range(4): # Add four null vertices
+                _vertices.append(Vector3())
         1: # Point
             _vertices.append(_vertices[0]) # Duplicate the point three times
             _vertices.append(_vertices[0])
