@@ -1,6 +1,6 @@
 class_name FaceData
 
-var vertices: Array
+var vertices: PackedVector3Array
 var normal: Vector3
 var area: float
 var angle: float
