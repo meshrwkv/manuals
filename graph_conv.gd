@@ -55,15 +55,8 @@ func _ready() -> void:
         sorted_faces.append(pair[1])
         sorted_adjacency_matrix.append(mesh_data["adjacency_matrix"][pair[0]])
 
-    # Replace the original arrays with the sorted ones
-    mesh_data["faces"] = sorted_faces
-    mesh_data["adjacency_matrix"] = sorted_adjacency_matrix
-
-    var x: Array = mesh_data["faces"]
-    var edge_index: Array = mesh_data["adjacency_matrix"]
-
     # Apply SAGEConv
-    x = conv.forward(x, edge_index)
+    x = conv.forward(sorted_faces, sorted_adjacency_matrix)
 
     # Perform RQ and get tokens
     var tokens: Array = codebook.quantize(x)
