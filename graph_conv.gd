@@ -92,7 +92,7 @@ func get_mesh_data(mesh: Mesh) -> Dictionary:
 
     return {
         "faces": faces,
-        "adjacency_matrix": tool.get_adjacency_matrix()
+        "adjacency_matrix": connectivity_data.get_adjacency_matrix()
     }
 
 ## Citations
