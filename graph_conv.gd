@@ -7,6 +7,27 @@ var conv: SAGEConv
 var codebook: Codebook  # Assuming you have a Codebook class for RQ
 var decoder: Decoder  # Assuming you have a Decoder class for decoding embeddings
 
+func compare_faces(pair_a: Array, pair_b: Array) -> int:
+        var a = pair_a[1]
+        var b = pair_b[1]
+        if a.area != b.area:
+            return -1 if a.area < b.area else 1
+        elif a.angle != b.angle:
+            return -1 if a.angle < b.angle else 1
+        elif a.normal != b.normal:
+            return -1 if a.normal < b.normal else 1
+        else:
+            return compare_vertices(a.vertices, b.vertices)
+
+func compare_vertices(a: list, b: list) -> int:
+        for i in range(len(a)):
+            if a[i].z != b[i].z:
+                return -1 if a[i].z < b[i].z else 1
+            elif a[i].y != b[i].y:
+                return -1 if a[i].y < b[i].y else 1
+            elif a[i].x != b[i].x:
+                return -1 if a[i].x < b[i].x else 1
+        return 0
 
 func _ready() -> void:
     var in_channels: int = # Define your input channels
@@ -15,57 +36,31 @@ func _ready() -> void:
     codebook = Codebook.new()  # Initialize your codebook
     decoder = Decoder.new()  # Initialize your decoder
 
+    var mesh_data: Dictionary = get_mesh_data(ArrayMesh.new())
 
-func get_mesh_data(mesh: Mesh) -> Dictionary:
-    var tool: MeshDataTool = MeshDataTool.new()
-    tool.create_from_surface(mesh, 0)
+    var original_mesh_faces = mesh_data["faces"]
+    # Create an array of pairs (index, face)
+    var index_face_pairs = []
+    for i in range(original_mesh_faces.size()):
+        index_face_pairs.append([i, original_mesh_faces[i]])
 
-    var vertices: Array = []
-    var edges: Array = []
-    var normals: Array = []
-    var areas: Array = []
-    var angles: Array = []
+    # Sort the index_face_pairs array using a custom comparison function
+    index_face_pairs.sort_custom(self, "compare_faces")
 
-    for i in range(tool.get_vertex_count()):
-        vertices.append(tool.get_vertex(i))
+    # Reorder the 'faces' and 'adjacency_matrix' arrays
+    var sorted_faces = []
+    var sorted_adjacency_matrix = []
+    for pair_i in range(index_face_pairs.size()):
+        var pair: Array = index_face_pairs[pair_i]
+        sorted_faces.append(pair[1])
+        sorted_adjacency_matrix.append(mesh_data["adjacency_matrix"][pair[0]])
 
-    # Sort vertices in z-y-x order [43] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter Battaglia. Polygen
-    vertices.sort_custom(self, "compare_vertices")
+    # Replace the original arrays with the sorted ones
+    mesh_data["faces"] = sorted_faces
+    mesh_data["adjacency_matrix"] = sorted_adjacency_matrix
 
-    for i in range(tool.get_edge_count()):
-        edges.append(tool.get_edge_vertices(i))
-
-    for i in range(tool.get_face_count()):
-        normals.append(tool.get_face_normal(i))
-        areas.append(tool.get_face_area(i))
-
-        # Calculate angles between edges
-        var face_vertices: Array = tool.get_face_vertices(i)
-        var angle: float = face_vertices[0].angle_to(face_vertices[1])
-        angles.append(angle)
-
-    # Order faces based on their lowest vertex index
-    var faces: Array = []
-    for i in range(tool.get_face_count()):
-        var face_vertices: Array = tool.get_face_vertices(i)
-        face_vertices.sort()
-        faces.append(face_vertices)
-
-    return {"vertices": vertices, "edges": edges, "normals": normals, "areas": areas, "faces": faces, "angles": angles}
-
-
-func compare_vertices(a: Vector3, b: Vector3) -> int:
-    if a.z != b.z:
-        return a.z < b.z ? -1 : 1
-    elif a.y != b.y:
-        return a.y < b.y ? -1 : 1
-    else:
-        return a.x < b.x ? -1 : 1
-
-
-func forward(data: Dictionary) -> Array:
-    var x: Array = data["x"]
-    var edge_index: Array = data["edge_index"]
+    var x: Array = mesh_data["faces"]
+    var edge_index: Array = mesh_data["adjacency_matrix"]
 
     # Apply SAGEConv
     x = conv.forward(x, edge_index)
@@ -78,6 +73,34 @@ func forward(data: Dictionary) -> Array:
 
     return reconstructed_mesh
 
+func get_mesh_data(mesh: Mesh) -> Dictionary:
+    var tool: MeshDataTool = MeshDataTool.new()
+    tool.create_from_surface(mesh, 0)
+
+    var faces: Array = []
+    for i in range(tool.get_face_count()):
+        var vertices: Array = []
+        for j in range(3):
+            vertices.append(tool.get_vertex(tool.get_face_vertex(i, j)))
+        var normal: Vector3 = tool.get_face_normal(i)
+        var area: float = normal.length() / 2.0
+        var angle: float = normal.angle_to(Vector3.UP)
+        faces.append({
+            "index": i,
+            "vertices": vertices,
+            "data": FaceData.new(vertices, normal, area, angle)
+        })
+
+    var face_data_array: Array = []
+    for face in faces:
+        face_data_array.append(face["data"])
+
+    var connectivity_data: ConnectivityData = ConnectivityData.new(face_data_array)
+
+    return {
+        "faces": faces,
+        "adjacency_matrix": tool.get_adjacency_matrix()
+    }
 
 ## Citations
 
