@@ -18,7 +18,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
 
 ## Extension Schema
 
-````json
+```json
 {
   "asset": {
     "version": "2.0"
