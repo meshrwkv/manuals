@@ -181,7 +181,7 @@ func compare_faces(pair_a, pair_b):
 
 ## High-dimensional Vector Generation
 
-The embedding vectors are generated using a 1-D ResNet-34 model and GraphSAGE. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, normals, face area, and edge angles.
+The embedding vectors are generated using a 1-D ResNet model and GraphSAGE. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, normals, face area, and edge angles.
 
 This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
