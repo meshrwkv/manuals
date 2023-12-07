@@ -179,9 +179,9 @@ func compare_faces(pair_a, pair_b):
     return 0
 ```
 
-## High-dimensional Vector Generation
+## Embedding Vector Generation
 
-The embedding vectors are generated using a 1-D ResNet model and GraphSAGE. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, normals, face area, and edge angles.
+The embedding vectors are generated using GraphSAGE. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, normals, face area, and edge angles.
 
 This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
@@ -194,14 +194,4 @@ This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) 
 }
 ```
 
-## Face Vertex Encoder
-
-The face vertex encoder is responsible for encoding the vertices and faces of a 3D model into a format that can be processed by the neural network. This involves converting the geometric data into a form that can be handled by the machine learning algorithm.
-
-## Embedding Code Book
-
-The embedding code book is a lookup table that maps each token in the input sequence to a high-dimensional vector. These vectors are learned during training and serve as the initial representations for the tokens.
-
-## Token Decoder
-
-The token decoder takes the output of the transformer and converts it back into a sequence of tokens. This involves mapping each output vector to the closest vector in the embedding code book.
+The face vertex encoder, embedding code book and token decoder are outside the scope of this specification.
