@@ -2,7 +2,7 @@
 
 ## Overview
 
-The `VSEKAI_mesh_geometric_embedding` extension is a proposed extension for the GLTF 2.0 specification. This extension provides additional geometric metadata for meshes, including face area, edge definition, edge area, and edge angles in radians. Each face index has a 128 float embedding vector.
+The `VSEKAI_mesh_geometric_embedding` extension is a proposed extension for the GLTF 2.0 specification. This extension provides additional geometric metadata for meshes, including face area, edge definition, edge area, and edge angles in radians. Each vertex of a face has a 128 float embedding vector.
 
 ## Extension Schema
 
