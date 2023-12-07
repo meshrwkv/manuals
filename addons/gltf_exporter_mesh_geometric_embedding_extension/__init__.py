@@ -7,7 +7,7 @@ bl_info = {
     "author": "K. S. Ernest (iFire) Lee",
     "version": (1, 0),
     "blender": (3, 0, 0),
-    "location": "File > Export > GLTF Data Writer",
+    "location": "File > Export > glTF 2.0",
     "description": "Writes GLTF data with VSEKAI_mesh_geometric_embedding",
     "warning": "",
     "wiki_url": "",
@@ -22,49 +22,43 @@ extension_is_required = False
 class MeshGeometricEmbeddingExtensionProperties(bpy.types.PropertyGroup):
     enabled: bpy.props.BoolProperty(
         name=bl_info["name"],
-        description="Include this extension in the exported glTF file.",
+        description="Geometric Embedding",
         default=True,
     )
 
 
-def menu_func_export(self, context):
-    self.layout.operator(ExportGLTFData.bl_idname, text="GLTF Data Writer (.gltf)")
+class GLTF_PT_MeshGeometricEmbeddingExtensionPanel(bpy.types.Panel):
+    bl_space_type = "FILE_BROWSER"
+    bl_region_type = "TOOL_PROPS"
+    bl_label = "Geometric Embedding Extension"
+    bl_parent_id = "GLTF_PT_export_data"
+    bl_options = {"DEFAULT_CLOSED"}
+
+    @classmethod
+    def poll(cls, context):
+        sfile = context.space_data
+        operator = sfile.active_operator
+        return operator.bl_idname == "EXPORT_SCENE_OT_gltf"
+
+    def draw_header(self, context):
+        props = bpy.context.scene.MeshGeometricEmbeddingExtensionProperties
+        self.layout.prop(props, "enabled")
+
+    def draw(self, context):
+        layout = self.layout
+        layout.use_property_split = True
+        layout.use_property_decorate = False  # No animation.
+
+        props = bpy.context.scene.MeshGeometricEmbeddingExtensionProperties
+        layout.active = props.enabled
 
 
-def register():
-    bpy.utils.register_class(MeshGeometricEmbeddingExtensionProperties)
-    bpy.types.Scene.MeshGeometricEmbeddingExtensionProperties = (
-        bpy.props.PointerProperty(type=MeshGeometricEmbeddingExtensionProperties)
-    )
-
-
-def unregister():
-    bpy.utils.unregister_class(MeshGeometricEmbeddingExtensionProperties)
-    del bpy.types.Scene.MeshGeometricEmbeddingExtensionProperties
-
-
-class ExportGLTFData(bpy.types.Operator, ExportHelper):
-    """GLTF Data Writer"""
-
-    bl_idname = "export_scene.gltf_mesh_geometric_embedding"
-    bl_label = "Export GLTF Geometric Embedding Data"
-
-
+class MeshGeometricEmbeddingExtension:
     def __init__(self):
         from io_scene_gltf2.io.com.gltf2_io_extensions import Extension
 
         self.Extension = Extension
         self.properties = bpy.context.scene.MeshGeometricEmbeddingExtensionProperties
-
-
-    def gather_scene_hook(self, gltf2_scene, blender_scene, export_settings):
-        if "extensionsUsed" not in gltf2_scene:
-            gltf2_scene["extensionsUsed"] = []
-        if "VSEKAI_mesh_geometric_embedding" not in gltf2_scene["extensionsUsed"]:
-            gltf2_scene["extensionsUsed"].append("VSEKAI_mesh_geometric_embedding")
-
-        return {"FINISHED"}
-
 
     def gather_mesh_hook(
         self,
@@ -76,6 +70,18 @@ class ExportGLTFData(bpy.types.Operator, ExportHelper):
         materials,
         export_settings,
     ):
+        if not self.properties.enabled:
+            return {"FINISHED"}
+
+        if gltf2_mesh.extensions is None:
+            gltf2_mesh.extensions = {}
+        gltf2_mesh.extensions[glTF_extension_name] = self.Extension(
+            name=glTF_extension_name,
+            extension={"bool": self.properties.enabled},
+            required=extension_is_required
+        )
+        if gltf2_mesh.extensions is None:
+            gltf2_mesh.extensions = {}
         face_areas = [poly.area for poly in blender_mesh.polygons]
 
         edge_angles = []
@@ -100,7 +106,7 @@ class ExportGLTFData(bpy.types.Operator, ExportHelper):
             }
         )
 
-        gltf2_mesh.extensions["EXT_structural_metadata"] = {
+        gltf2_mesh.extensions[glTF_extension_name] = {
             "faceAttributes": {
                 "faceArea": {
                     "bufferView": len(gltf2_mesh.bufferViews) - 1,
@@ -130,6 +136,25 @@ class ExportGLTFData(bpy.types.Operator, ExportHelper):
         }
 
         return {"FINISHED"}
+
+classes = (
+    MeshGeometricEmbeddingExtensionProperties,
+    GLTF_PT_MeshGeometricEmbeddingExtensionPanel,
+)
+
+
+def register():
+    for cls in classes:
+        bpy.utils.register_class(cls)
+    bpy.types.Scene.MeshGeometricEmbeddingExtensionProperties = (
+        bpy.props.PointerProperty(type=MeshGeometricEmbeddingExtensionProperties)
+    )
+
+
+def unregister():
+    for cls in reversed(classes):
+        bpy.utils.unregister_class(cls)
+    del bpy.types.Scene.MeshGeometricEmbeddingExtensionProperties
 
 
 if __name__ == "__main__":
