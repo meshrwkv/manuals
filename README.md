@@ -186,7 +186,7 @@ func compare_faces(pair_a, pair_b):
 
 ## Embedding Vector Generation
 
-The embedding vectors are generated using GraphSAGE. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, normals, face area, and edge angles.
+The procedure for creating embedding vectors leverages the GraphSAGE model. This model functions on sorted vertices and faces, taking into account their interconnections with other faces. We take account of the weight of distance, position attributes, normals, face area, edge angles, and additional mesh attributes such tangent, text coordinates, color, joints and joint weights.
 
 This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
