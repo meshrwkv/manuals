@@ -188,28 +188,28 @@ func compare_faces(pair_a, pair_b):
 
 The procedure for creating embedding vectors leverages the GraphSAGE model. This model functions on sorted vertices and faces, taking into account their interconnections with other faces.
 
-| INDEX | EMBEDDING TYPE      | DESCRIPTION                                                                                            |
-| ----- | ------------------- | ------------------------------------------------------------------------------------------------------ |
-| 0     | `POSITION_X`        | The x-coordinate of the position vector                                                                |
-| 1     | `POSITION_Y`        | The y-coordinate of the position vector                                                                |
-| 2     | `POSITION_Z`        | The z-coordinate of the position vector                                                                |
-| 3     | `NORMAL_X`          | The X component of the normal vector associated with a vertex or face (part of a Vector3)              |
-| 4     | `NORMAL_Y`          | The Y component of the normal vector associated with a vertex or face (part of a Vector3)              |
-| 5     | `NORMAL_Z`          | The Z component of the normal vector associated with a vertex or face (part of a Vector3)              |
-| 6     | `TANGENT_X`         | The X component of the tangent vector at a vertex (part of a Vector4)                                  |
-| 7     | `TANGENT_Y`         | The Y component of the tangent vector at a vertex (part of a Vector4)                                  |
-| 8     | `TANGENT_Z`         | The Z component of the tangent vector at a vertex (part of a Vector4)                                  |
-| 9     | `TANGENT_W`         | The W component of the tangent vector at a vertex (part of a Vector4)                                  |
-| 10    | `TEX_COORD_0_U`     | The X component of the first texture coordinate associated with a vertex                               |
-| 11    | `TEX_COORD_0_V`     | The Y component of the first texture coordinate associated with a vertex                               |
-| 12    | `COLOR_R`           | The red component of the color value associated with a vertex (part of a Vector4)                      |
-| 13    | `COLOR_G`           | The green component of the color value associated with a vertex (part of a Vector4)                    |
-| 14    | `COLOR_B`           | The blue component of the color value associated with a vertex (part of a Vector4)                     |
-| 15    | `COLOR_A`           | The alpha component of the color value associated with a vertex (part of a Vector4), assumed to be 1.0 |
-| 16    | `JOINT_INDEX`       | The index of a joint for a vertex                                                                      |
-| 17    | `JOINT_WEIGHT`      | The weight of influence a joint has on a vertex                                                        |
-| 18    | `FACE_AREA`         | The area of the face defined by the vertices                                                           |
-| 19    | `LAST_VERTEX_ANGLE` | The angle to the last vertex in the list                                                               |
+| INDEX | EMBEDDING TYPE  | DESCRIPTION                                                                                            |
+| ----- | --------------- | ------------------------------------------------------------------------------------------------------ |
+| 0     | `POSITION_X`    | The x-coordinate of the position vector                                                                |
+| 1     | `POSITION_Y`    | The y-coordinate of the position vector                                                                |
+| 2     | `POSITION_Z`    | The z-coordinate of the position vector                                                                |
+| 3     | `NORMAL_X`      | The X component of the normal vector associated with a vertex or face (part of a Vector3)              |
+| 4     | `NORMAL_Y`      | The Y component of the normal vector associated with a vertex or face (part of a Vector3)              |
+| 5     | `NORMAL_Z`      | The Z component of the normal vector associated with a vertex or face (part of a Vector3)              |
+| 6     | `TANGENT_X`     | The X component of the tangent vector at a vertex (part of a Vector4)                                  |
+| 7     | `TANGENT_Y`     | The Y component of the tangent vector at a vertex (part of a Vector4)                                  |
+| 8     | `TANGENT_Z`     | The Z component of the tangent vector at a vertex (part of a Vector4)                                  |
+| 9     | `TANGENT_W`     | The W component of the tangent vector at a vertex (part of a Vector4)                                  |
+| 10    | `TEX_COORD_0_U` | The X component of the first texture coordinate associated with a vertex                               |
+| 11    | `TEX_COORD_0_V` | The Y component of the first texture coordinate associated with a vertex                               |
+| 12    | `COLOR_R`       | The red component of the color value associated with a vertex (part of a Vector4)                      |
+| 13    | `COLOR_G`       | The green component of the color value associated with a vertex (part of a Vector4)                    |
+| 14    | `COLOR_B`       | The blue component of the color value associated with a vertex (part of a Vector4)                     |
+| 15    | `COLOR_A`       | The alpha component of the color value associated with a vertex (part of a Vector4), assumed to be 1.0 |
+| 16    | `JOINT_INDEX`   | The index of a joint for a vertex                                                                      |
+| 17    | `JOINT_WEIGHT`  | The weight of influence a joint has on a vertex                                                        |
+| 18    | `FACE_AREA`     | The area of the face defined by the vertices                                                           |
+| 19    | `ANGLE`         | The angle at the vertex                                                                                |
 
 This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
