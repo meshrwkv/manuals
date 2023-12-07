@@ -150,7 +150,7 @@ After the vertices have been sorted, faces are sorted based on their index ID. T
 # Polygen: An autoregressive generative model of 3d meshes.
 # In International conference on machine learning, pages 7220–7229. PMLR, 2020
 
-def compare_vertices(vertices_a, vertices_b):
+func compare_vertices(vertices_a, vertices_b):
     for i in range(len(vertices_a)):
         # Compare vertex positions
         if vertices_a[i].position < vertices_b[i].position:
@@ -161,7 +161,7 @@ def compare_vertices(vertices_a, vertices_b):
     # If all vertex positions are equal, the vertices are equal
     return 0
 
-def compare_faces(pair_a, pair_b):
+func compare_faces(pair_a, pair_b):
     a = pair_a[1]
     b = pair_b[1]
 
