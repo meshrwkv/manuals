@@ -140,15 +140,26 @@ Normals are required for each face of the mesh. A face is defined by three verti
 
 The vertex and face sorting scheme is a crucial part of the `VSEKAI_mesh_geometric_embedding` extension. It ensures that the geometric data is organized in a consistent and predictable manner, which is essential for efficient processing and accurate rendering.
 
-Faces are sorted based on their area, angle, and normal. The comparison function `compare_faces` is used to sort an array of faces. This function compares two faces based on their area first. If the areas are equal, it then compares the angles. If the angles are also equal, it finally compares the normals. If all these attributes are equal, it calls the `compare_vertices` function to compare the vertices of the faces.
+Vertices within each face are sorted first. The comparison function `compare_vertices` is used to sort an array of vertices. This function compares two vertices based on their z-coordinate first. If the z-coordinates are equal, it then compares the y-coordinates. If the y-coordinates are also equal, it finally compares the x-coordinates.
 
-Vertices within each face are sorted based on their z, y, and x coordinates. The comparison function `compare_vertices` is used to sort an array of vertices. This function compares two vertices based on their z-coordinate first. If the z-coordinates are equal, it then compares the y-coordinates. If the y-coordinates are also equal, it finally compares the x-coordinates.
+After the vertices have been sorted, faces are sorted based on their index ID. The comparison function `compare_faces` is used to sort an array of faces. This function compares two faces based on their index ID.
 
 ```gdscript
 # Sorting scheme based on:
-# [43] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter Battaglia. 
-# Polygen: An autoregressive generative model of 3d meshes. 
+# [43] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter Battaglia.
+# Polygen: An autoregressive generative model of 3d meshes.
 # In International conference on machine learning, pages 7220–7229. PMLR, 2020
+
+def compare_vertices(vertices_a, vertices_b):
+    for i in range(len(vertices_a)):
+        # Compare vertex IDs
+        if vertices_a[i].id < vertices_b[i].id:
+            return -1
+        elif vertices_a[i].id > vertices_b[i].id:
+            return 1
+
+    # If all vertex IDs are equal, the vertices are equal
+    return 0
 
 def compare_faces(pair_a, pair_b):
     a = pair_a[1]
@@ -162,17 +173,6 @@ def compare_faces(pair_a, pair_b):
 
     # If face IDs are equal, compare vertex IDs
     return compare_vertices(a.vertices, b.vertices)
-
-def compare_vertices(vertices_a, vertices_b):
-    for i in range(len(vertices_a)):
-        # Compare vertex IDs
-        if vertices_a[i].id < vertices_b[i].id:
-            return -1
-        elif vertices_a[i].id > vertices_b[i].id:
-            return 1
-
-    # If all vertex IDs are equal, the vertices are equal
-    return 0
 ```
 
-This sorting scheme ensures that the faces and vertices are ordered in a consistent manner, which is crucial for the correct functioning of the `VSEKAI_mesh_geometric_embedding` extension.
+This sorting scheme ensures that the vertices and faces are ordered in a consistent manner, which is crucial for the correct functioning of the `VSEKAI_mesh_geometric_embedding` extension.
