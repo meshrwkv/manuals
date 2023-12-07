@@ -14,7 +14,11 @@ Written against the glTF 2.0 specification and the EXT_structural_metadata exten
 
 ## Overview
 
-The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0 specification. This extension provides additional geometric metadata for meshes, including face area, edge definition, edge area, and edge angles in radians.
+The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0 specification. This extension provides additional geometric metadata for meshes, including face area, edge definition, edge area, and edge angles in radians. We want to teach large language models to use a language of face vertices as its language vocabulary.
+
+As we input face vertex tokens, the large language model auto completes more face vertices until we have a full mesh. 
+
+We need to be able to encode and decode vocabulary into face vertices. `Vector3, Vector3, Vector3, [vertex node 1, vertex node 2, weight, ... up to 3 connections per face vertex]`
 
 ## Extension Schema
 
