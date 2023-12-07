@@ -140,23 +140,7 @@ Normals are required for each face of the mesh. A face is defined by three verti
 
 The vertex and face sorting scheme is a crucial part of the `VSEKAI_mesh_geometric_embedding` extension. It ensures that the geometric data is organized in a consistent and predictable manner, which is essential for efficient processing and accurate rendering.
 
-### Face Sorting
-
 Faces are sorted based on their area, angle, and normal. The comparison function `compare_faces` is used to sort an array of faces. This function compares two faces based on their area first. If the areas are equal, it then compares the angles. If the angles are also equal, it finally compares the normals. If all these attributes are equal, it calls the `compare_vertices` function to compare the vertices of the faces.
-
-```gdscript
-def compare_faces(a, b):
-    # Compare face IDs
-    if a.id < b.id:
-        return -1
-    elif a.id > b.id:
-        return 1
-
-    # If face IDs are equal, compare vertex IDs
-    return compare_vertices(a.vertices, b.vertices)
-```
-
-### Vertex Sorting
 
 Vertices within each face are sorted based on their z, y, and x coordinates. The comparison function `compare_vertices` is used to sort an array of vertices. This function compares two vertices based on their z-coordinate first. If the z-coordinates are equal, it then compares the y-coordinates. If the y-coordinates are also equal, it finally compares the x-coordinates.
 
