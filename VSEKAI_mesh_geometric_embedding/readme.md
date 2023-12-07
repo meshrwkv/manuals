@@ -116,6 +116,10 @@ The `VSEKAI_mesh_geometric_embedding` extension is a proposed extension for the 
 
 This extension can be used to provide additional geometric information about a mesh, such as the embedding vector for each face index. The embedding vectors are particularly useful for large language models to parse the GLTF more efficiently.
 
+## Indexed Mesh Requirement
+
+For this extension to function correctly, the mesh must be indexed. An indexed mesh uses an array of indices to reference vertices, allowing for efficient reuse of vertex data and reducing the overall size of the mesh data.
+
 ## Normals
 
 Normals are required for each face of the mesh. A face is defined by three vertices. The normal of a face is a vector that is perpendicular to the plane of the face. In the above schema, normals are included in the `attributes` section of each primitive in the `meshes` array. The `NORMAL` attribute is an accessor index that points to the buffer view containing the normal data.
