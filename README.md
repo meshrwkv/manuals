@@ -193,12 +193,3 @@ This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) 
   year={2023}
 }
 ```
-
-### Sizes of Generated Embedding Vectors
-
-The sizes of the generated embedding vectors depend on the complexity of the mesh data and the configuration of the ResNet-34 model. However, as a general guideline:
-
-- Each indexed face vertex in the mesh generates a 128-dimensional vector (hence we store 128 floats per face index).
-- The total number of generated vectors (`count`) should match the total number of indexed face vertices in the mesh.
-- The size of each vector component is 4 bytes (as indicated by the `componentType` 5126, which corresponds to `FLOAT` in the GLTF specification).
-- Therefore, the total size of the embedding vectors (`byteLength`) should be 4 bytes _ 128 dimensions _ `count`.
