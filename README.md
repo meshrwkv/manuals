@@ -80,7 +80,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
   ],
   "buffers": [
     {
-      "byteLength": 1024,
+      "byteLength": 6144,
       "uri": "external_file.bin"
     }
   ],
@@ -88,7 +88,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
     {
       "buffer": 0,
       "byteOffset": 0,
-      "byteLength": 1024
+      "byteLength": 6144
     }
   ],
   "accessors": [
@@ -103,14 +103,14 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
     },
     {
       "bufferView": 0,
-      "byteOffset": 96,
+      "byteOffset": 48,
       "componentType": 5126,
       "count": 4,
       "type": "VEC3"
     },
     {
       "bufferView": 0,
-      "byteOffset": 192,
+      "byteOffset": 96,
       "componentType": 5123,
       "count": 12,
       "type": "SCALAR"
