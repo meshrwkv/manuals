@@ -148,15 +148,22 @@ After the vertices have been sorted, faces are sorted based on their index ID. T
 # Polygen: An autoregressive generative model of 3d meshes.
 # In International conference on machine learning, pages 7220–7229. PMLR, 2020
 
-func compare_vertices(vertices_a, vertices_b):
-    for i in range(len(vertices_a)):
-        # Compare vertex positions
-        if vertices_a[i].position < vertices_b[i].position:
-            return -1
-        elif vertices_a[i].position > vertices_b[i].position:
-            return 1
+func compare_vertices(vertex_a, vertex_b):
+    # Compare vertex positions
+    if vertex_a.position.z < vertex_b.position.z:
+        return -1
+    elif vertex_a.position.z > vertex_b.position.z:
+        return 1
+    elif vertex_a.position.y < vertex_b.position.y:
+        return -1
+    elif vertex_a.position.y > vertex_b.position.y:
+        return 1
+    elif vertex_a.position.x < vertex_b.position.x:
+        return -1
+    elif vertex_a.position.x > vertex_b.position.x:
+        return 1
 
-    # If all vertex positions are equal, the vertices are equal
+    # If all vertex positions are equal, the vertices are equal.
     return 0
 
 func compare_faces(pair_a, pair_b):
@@ -193,3 +200,7 @@ This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) 
 ```
 
 The face vertex encoder, embedding code book and token decoder are outside the scope of this specification.
+
+### Uninitialized Geometry Embedding
+
+When the geometry embedding is uninitialized we use a 128-dimensional zero vector, where all elements are set to `0`. This value is used as a placeholder until the actual embedding vectors are computed and filled in.
