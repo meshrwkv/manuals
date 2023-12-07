@@ -130,11 +130,11 @@ This extension can be used to provide additional geometric information about a m
 
 ## Indexed Mesh Requirement
 
-For this extension to function correctly, the mesh must be indexed.
+The mesh must be indexed.
 
-## Normals
+## Normals Requirement
 
-Normals are required for each face of the mesh.
+The mesh must have normals.
 
 ## Vertex and Face Sorting Scheme
 
