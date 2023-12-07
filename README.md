@@ -52,6 +52,8 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
               "MESH_ID": { "type": "SCALAR", "componentType": "UINT32" },
               "VERTEX_INDEX": { "type": "SCALAR", "componentType": "UINT32" },
               "PRIMITIVE_ID": { "type": "SCALAR", "componentType": "UINT32" }
+              "TEXCOORD_U": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "TEXCOORD_V": { "type": "SCALAR", "componentType": "FLOAT32" }
             }
           },
           "distance": {
@@ -88,8 +90,10 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "FACE_AREA": { "values": 12 },
             "ANGLE": { "values": 13 },
             "MESH_ID": { "values": 14 },
-            "VERTEX_INDEX": { "values": 15 }
+            "VERTEX_INDEX": { "values": 15 },
             "PRIMITIVE_ID": { "values": 16 },
+            "TEXCOORD_U": { "values": 17 },
+            "TEXCOORD_V": { "values": 18 },
           }
         },
         {
