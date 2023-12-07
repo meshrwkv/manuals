@@ -49,10 +49,10 @@ Written against the glTF 2.0 specification and the EXT_structural_metadata exten
         }
       },
       "faceMappings": [
-        { "index": 0, "values": [0, 1, 2, 3] },
-        { "index": 1, "values": [4, 5, 6] },
-        { "index": 2, "values": [7, 8, 9] },
-        { "index": 3, "values": [10, 11, 12] }
+        { "index": 0, "values": [0, 1, 2] },
+        { "index": 1, "values": [3, 4, 5] },
+        { "index": 2, "values": [6, 7, 8] },
+        { "index": 3, "values": [9, 10, 11] }
       ]
     }
   },
