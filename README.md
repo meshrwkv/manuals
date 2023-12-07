@@ -179,11 +179,9 @@ func compare_faces(pair_a, pair_b):
     return 0
 ```
 
-This sorting scheme ensures that the vertices and faces are ordered in a consistent manner, which is crucial for the correct functioning of the `VSEKAI_mesh_geometric_embedding` extension.
-
 ## Embedding Vector Generation
 
-The embedding vectors are generated using a 1-D ResNet-34 model. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, and face index.
+The embedding vectors are generated using a 1-D ResNet-34 model and GraphSAGE. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, normals, face area, and edge angles.
 
 This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
@@ -196,8 +194,6 @@ This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) 
 }
 ```
 
-The use of a 1-D ResNet-34 model allows for efficient generation of high-quality embedding vectors, which are essential for the accurate rendering and processing of the mesh data.
-
 ### Sizes of Generated Embedding Vectors
 
 The sizes of the generated embedding vectors depend on the complexity of the mesh data and the configuration of the ResNet-34 model. However, as a general guideline:
@@ -206,5 +202,3 @@ The sizes of the generated embedding vectors depend on the complexity of the mes
 - The total number of generated vectors (`count`) should match the total number of indexed face vertices in the mesh.
 - The size of each vector component is 4 bytes (as indicated by the `componentType` 5126, which corresponds to `FLOAT` in the GLTF specification).
 - Therefore, the total size of the embedding vectors (`byteLength`) should be 4 bytes _ 128 dimensions _ `count`.
-
-Please adjust these values according to your specific mesh data and ResNet-34 model configuration.
