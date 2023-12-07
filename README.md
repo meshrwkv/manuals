@@ -166,19 +166,16 @@ func compare_vertices(vertex_a, vertex_b):
     # If all vertex positions are equal, the vertices are equal.
     return 0
 
-func compare_faces(pair_a, pair_b):
-    a = pair_a[1]
-    b = pair_b[1]
-
+func compare_faces(face_a, face_b):
     # Compare vertices first
-    vertex_comparison = compare_vertices(a.vertices, b.vertices)
+    vertex_comparison = compare_vertices(face_a.vertices, face_b.vertices)
     if vertex_comparison != 0:
         return vertex_comparison
 
     # If vertices are equal, compare face IDs
-    if a.id < b.id:
+    if face_a.id < face_b.id:
         return -1
-    elif a.id > b.id:
+    elif face_a.id > face_b.id:
         return 1
 
     return 0
