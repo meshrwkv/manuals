@@ -51,7 +51,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
               "ANGLE": { "type": "SCALAR", "componentType": "FLOAT32" },
               "MESH_ID": { "type": "SCALAR", "componentType": "UINT32" },
               "VERTEX_INDEX": { "type": "SCALAR", "componentType": "UINT32" },
-              "PRIMITIVE_ID": { "type": "SCALAR", "componentType": "UINT32" }
+              "PRIMITIVE_ID": { "type": "SCALAR", "componentType": "UINT32" },
               "TEXCOORD_U": { "type": "SCALAR", "componentType": "FLOAT32" },
               "TEXCOORD_V": { "type": "SCALAR", "componentType": "FLOAT32" }
             }
@@ -93,7 +93,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "VERTEX_INDEX": { "values": 15 },
             "PRIMITIVE_ID": { "values": 16 },
             "TEXCOORD_U": { "values": 17 },
-            "TEXCOORD_V": { "values": 18 },
+            "TEXCOORD_V": { "values": 18 }
           }
         },
         {
@@ -105,7 +105,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "NODE1_ID": { "values": 1 },
             "WEIGHT": { "values": 2 },
             "MESH_ID": { "values": 3 },
-            "PRIMITIVE_ID": { "values": 4 },
+            "PRIMITIVE_ID": { "values": 4 }
           }
         }
       ]
@@ -113,7 +113,8 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
   },
   "nodes": [
     {
-      "mesh": 0
+      "mesh": 0,
+      "skin": 0
     }
   ],
   "meshes": [
@@ -122,11 +123,21 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
         {
           "attributes": {
             "POSITION": 0,
-            "NORMAL": 1
+            "NORMAL": 1,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3,
+            "JOINTS_0": 4,
+            "WEIGHTS_0": 5
           },
-          "indices": 2
+          "indices": 6
         }
       ]
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 6,
+      "joints": [0]
     }
   ],
   "buffers": [
