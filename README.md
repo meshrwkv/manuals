@@ -229,8 +229,6 @@ func compare_faces(face_a, face_b):
 
 ## Face Vertex Attributes
 
-The procedure for creating embedding vectors leverages the GraphSAGE model. This model functions on sorted vertices and faces, taking into account their interconnections with other faces.
-
 | INDEX | EMBEDDING TYPE | DESCRIPTION                                                                       |
 | ----- | -------------- | --------------------------------------------------------------------------------- |
 | 0     | `POSITION_X`   | The x-coordinate of the position vector (part of a Vector3)                       |
@@ -248,7 +246,7 @@ The procedure for creating embedding vectors leverages the GraphSAGE model. This
 | 12    | `FACE_AREA`    | The area of the face defined by the vertices                                      |
 | 13    | `ANGLE`        | The angle at the vertex in radians                                                |
 
-This approach is based on the MeshGPT method in "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
+This approach is based on the MeshGPT method in [MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers](https://nihalsid.github.io/mesh-gpt/).
 
 ```bibtex
 @article{siddiqui2023meshgpt,
@@ -258,5 +256,3 @@ This approach is based on the MeshGPT method in "MeshGPT: Generating Triangle Me
   year={2023}
 }
 ```
-
-The face vertex encoder, embedding code book and token decoder are outside the scope of this specification.
