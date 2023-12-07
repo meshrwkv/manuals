@@ -28,6 +28,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
     "VSEKAI_mesh_geometric_embedding"
   ],
   "extensions": {
+    "VSEKAI_mesh_geometric_embedding": {},
     "EXT_structural_metadata": {
       "faceAttributes": {
         "faceArea": {
@@ -147,7 +148,6 @@ After the vertices have been sorted, faces are sorted based on their index ID. T
 # [43] Charlie Nash, Yaroslav Ganin, SM Ali Eslami, and Peter Battaglia.
 # Polygen: An autoregressive generative model of 3d meshes.
 # In International conference on machine learning, pages 7220–7229. PMLR, 2020
-
 func compare_vertices(vertex_a, vertex_b):
     # Compare vertex positions
     if vertex_a.position.z < vertex_b.position.z:
@@ -208,7 +208,7 @@ The procedure for creating embedding vectors leverages the GraphSAGE model. This
 | 18    | `FACE_AREA`     | The area of the face defined by the vertices                                                           |
 | 19    | `ANGLE`         | The angle at the vertex in radians                                                                     |
 
-This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
+This approach is based on the MeshGPT method in "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
 ```bibtex
 @article{siddiqui2023meshgpt,
