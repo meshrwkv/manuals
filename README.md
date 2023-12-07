@@ -197,12 +197,10 @@ The procedure for creating embedding vectors leverages the GraphSAGE model. This
 | 7     | `TANGENT_Y`     | The Y component of the tangent vector at a vertex (part of a Vector4)             |
 | 8     | `TANGENT_Z`     | The Z component of the tangent vector at a vertex (part of a Vector4)             |
 | 9     | `TANGENT_W`     | The W component of the tangent vector at a vertex (part of a Vector4)             |
-| 10    | `TEX_COORD_0_U` | The X component of the first texture coordinate associated with a vertex          |
-| 11    | `TEX_COORD_0_V` | The Y component of the first texture coordinate associated with a vertex          |
-| 12    | `JOINT_INDEX`   | The index of a joint for a vertex                                                 |
-| 13    | `JOINT_WEIGHT`  | The weight of influence a joint has on a vertex                                   |
-| 14    | `FACE_AREA`     | The area of the face defined by the vertices                                      |
-| 15    | `ANGLE`         | The angle at the vertex in radians                                                |
+| 10    | `JOINT_INDEX`   | The index of a joint for a vertex                                                 |
+| 11    | `JOINT_WEIGHT`  | The weight of influence a joint has on a vertex                                   |
+| 12    | `FACE_AREA`     | The area of the face defined by the vertices                                      |
+| 13    | `ANGLE`         | The angle at the vertex in radians                                                |
 
 This approach is based on the MeshGPT method in "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
