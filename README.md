@@ -166,11 +166,6 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
 }
 ```
 
-## Extension Components
-
-- `faceAttributes`: Contains attributes related to the faces of the mesh. This includes `embeddingVector`.
-- `faceMappings`: Maps face index values to their corresponding values in the `faceAttributes`.
-
 ## Usage
 
 This extension can be used to provide additional geometric information about a mesh, such as the embedding vector for each face index. The embedding vectors are particularly useful for large language models to parse the GLTF more efficiently.
