@@ -152,31 +152,48 @@ After the vertices have been sorted, faces are sorted based on their index ID. T
 
 def compare_vertices(vertices_a, vertices_b):
     for i in range(len(vertices_a)):
-        # Compare vertex IDs
-        if vertices_a[i].id < vertices_b[i].id:
+        # Compare vertex positions
+        if vertices_a[i].position < vertices_b[i].position:
             return -1
-        elif vertices_a[i].id > vertices_b[i].id:
+        elif vertices_a[i].position > vertices_b[i].position:
             return 1
 
-    # If all vertex IDs are equal, the vertices are equal
+    # If all vertex positions are equal, the vertices are equal
     return 0
 
 def compare_faces(pair_a, pair_b):
     a = pair_a[1]
     b = pair_b[1]
 
-    # Compare face IDs
+    # Compare vertices first
+    vertex_comparison = compare_vertices(a.vertices, b.vertices)
+    if vertex_comparison != 0:
+        return vertex_comparison
+
+    # If vertices are equal, compare face IDs
     if a.id < b.id:
         return -1
     elif a.id > b.id:
         return 1
 
-    # If face IDs are equal, compare vertex IDs
-    return compare_vertices(a.vertices, b.vertices)
+    return 0
 ```
 
 This sorting scheme ensures that the vertices and faces are ordered in a consistent manner, which is crucial for the correct functioning of the `VSEKAI_mesh_geometric_embedding` extension.
 
 ## Embedding Vector Generation
 
-The suggested embedding scheme is using GraphSAGE graph convolution and operate on the face vertices on their connections to other faces via the weight of distance and the attributes of position, and face index.
+The embedding vectors are generated using a 1-D ResNet-34 model. The model operates on the sorted vertices and faces, taking into account their connections to other faces via the weight of distance and the attributes of position, and face index.
+
+This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
+
+```bibtex
+@article{siddiqui2023meshgpt,
+  title={MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers},
+  author={Siddiqui, Yawar and Alliegro, Antonio and Artemov, Alexey and Tommasi, Tatiana and Sirigatti, Daniele and Rosov, Vladislav and Dai, Angela and Nie{\ss}ner, Matthias},
+  journal={arXiv preprint arXiv:2311.15475},
+  year={2023}
+}
+```
+
+The use of a 1-D ResNet-34 model allows for efficient generation of high-quality embedding vectors, which are essential for the accurate rendering and processing of the mesh data.
