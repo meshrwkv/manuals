@@ -206,7 +206,7 @@ The procedure for creating embedding vectors leverages the GraphSAGE model. This
 | 16    | `JOINT_INDEX`   | The index of a joint for a vertex                                                                      |
 | 17    | `JOINT_WEIGHT`  | The weight of influence a joint has on a vertex                                                        |
 | 18    | `FACE_AREA`     | The area of the face defined by the vertices                                                           |
-| 19    | `ANGLE`         | The angle at the vertex                                                                                |
+| 19    | `ANGLE`         | The angle at the vertex in radians                                                                     |
 
 This approach is based on the MeshGPT method proposed by Siddiqui et al. (2023) in their paper "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
