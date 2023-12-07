@@ -24,42 +24,10 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
     "version": "2.0"
   },
   "extensionsUsed": [
-    "EXT_structural_metadata",
     "VSEKAI_mesh_geometric_embedding"
   ],
   "extensions": {
-    "VSEKAI_mesh_geometric_embedding": {},
-    "EXT_structural_metadata": {
-      "faceAttributes": {
-        "faceArea": {
-          "bufferView": 1,
-          "byteOffset": 0,
-          "componentType": 5126,
-          "count": 4,
-          "type": "SCALAR"
-        },
-        "edgeAngles": {
-          "bufferView": 2,
-          "byteOffset": 0,
-          "componentType": 5126,
-          "count": 12,
-          "type": "VEC3"
-        },
-        "embeddingVector": {
-          "bufferView": 3,
-          "byteOffset": 0,
-          "componentType": 5126,
-          "count": 1536,
-          "type": "VEC4"
-        }
-      },
-      "faceMappings": [
-        { "index": 0, "values": [0, 1, 2] },
-        { "index": 1, "values": [3, 4, 5] },
-        { "index": 2, "values": [6, 7, 8] },
-        { "index": 3, "values": [9, 10, 11] }
-      ]
-    }
+    "VSEKAI_mesh_geometric_embedding": {}
   },
   "nodes": [
     {
@@ -74,7 +42,40 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "POSITION": 0,
             "NORMAL": 1
           },
-          "indices": 2
+          "indices": 2,
+          "extras": {
+            "VSEKAI_mesh_geometric_embedding": {
+              "faceAttributes": {
+                "faceArea": {
+                  "bufferView": 1,
+                  "byteOffset": 0,
+                  "componentType": 5126,
+                  "count": 4,
+                  "type": "SCALAR"
+                },
+                "edgeAngles": {
+                  "bufferView": 2,
+                  "byteOffset": 0,
+                  "componentType": 5126,
+                  "count": 12,
+                  "type": "VEC3"
+                },
+                "embeddingVector": {
+                  "bufferView": 3,
+                  "byteOffset": 0,
+                  "componentType": 5126,
+                  "count": 1536,
+                  "type": "VEC4"
+                }
+              },
+              "faceMappings": [
+                { "index": 0, "values": [0, 1, 2] },
+                { "index": 1, "values": [3, 4, 5] },
+                { "index": 2, "values": [6, 7, 8] },
+                { "index": 3, "values": [9, 10, 11] }
+              ]
+            }
+          }
         }
       ]
     }
@@ -185,22 +186,22 @@ func compare_faces(face_a, face_b):
 
 The procedure for creating embedding vectors leverages the GraphSAGE model. This model functions on sorted vertices and faces, taking into account their interconnections with other faces.
 
-| INDEX | EMBEDDING TYPE  | DESCRIPTION                                                                       |
-| ----- | --------------- | --------------------------------------------------------------------------------- |
-| 0     | `POSITION_X`    | The x-coordinate of the position vector (part of a Vector3)                       |
-| 1     | `POSITION_Y`    | The y-coordinate of the position vector (part of a Vector3)                       |
-| 2     | `POSITION_Z`    | The z-coordinate of the position vector (part of a Vector3)                       |
-| 3     | `NORMAL_X`      | The X component of the normal vector associated with a vertex (part of a Vector3) |
-| 4     | `NORMAL_Y`      | The Y component of the normal vector associated with a vertex (part of a Vector3) |
-| 5     | `NORMAL_Z`      | The Z component of the normal vector associated with a vertex (part of a Vector3) |
-| 6     | `TANGENT_X`     | The X component of the tangent vector at a vertex (part of a Vector4)             |
-| 7     | `TANGENT_Y`     | The Y component of the tangent vector at a vertex (part of a Vector4)             |
-| 8     | `TANGENT_Z`     | The Z component of the tangent vector at a vertex (part of a Vector4)             |
-| 9     | `TANGENT_W`     | The W component of the tangent vector at a vertex (part of a Vector4)             |
-| 10    | `JOINT_INDEX`   | The index of a joint for a vertex                                                 |
-| 11    | `JOINT_WEIGHT`  | The weight of influence a joint has on a vertex                                   |
-| 12    | `FACE_AREA`     | The area of the face defined by the vertices                                      |
-| 13    | `ANGLE`         | The angle at the vertex in radians                                                |
+| INDEX | EMBEDDING TYPE | DESCRIPTION                                                                       |
+| ----- | -------------- | --------------------------------------------------------------------------------- |
+| 0     | `POSITION_X`   | The x-coordinate of the position vector (part of a Vector3)                       |
+| 1     | `POSITION_Y`   | The y-coordinate of the position vector (part of a Vector3)                       |
+| 2     | `POSITION_Z`   | The z-coordinate of the position vector (part of a Vector3)                       |
+| 3     | `NORMAL_X`     | The X component of the normal vector associated with a vertex (part of a Vector3) |
+| 4     | `NORMAL_Y`     | The Y component of the normal vector associated with a vertex (part of a Vector3) |
+| 5     | `NORMAL_Z`     | The Z component of the normal vector associated with a vertex (part of a Vector3) |
+| 6     | `TANGENT_X`    | The X component of the tangent vector at a vertex (part of a Vector4)             |
+| 7     | `TANGENT_Y`    | The Y component of the tangent vector at a vertex (part of a Vector4)             |
+| 8     | `TANGENT_Z`    | The Z component of the tangent vector at a vertex (part of a Vector4)             |
+| 9     | `TANGENT_W`    | The W component of the tangent vector at a vertex (part of a Vector4)             |
+| 10    | `JOINT_INDEX`  | The index of a joint for a vertex                                                 |
+| 11    | `JOINT_WEIGHT` | The weight of influence a joint has on a vertex                                   |
+| 12    | `FACE_AREA`    | The area of the face defined by the vertices                                      |
+| 13    | `ANGLE`        | The angle at the vertex in radians                                                |
 
 This approach is based on the MeshGPT method in "MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers". The paper can be found [here](https://nihalsid.github.io/mesh-gpt/).
 
