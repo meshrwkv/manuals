@@ -228,7 +228,7 @@ We want to teach large language models to use a language of face vertices as its
 
 As we input face vertex tokens, the large language model auto completes more face vertices until we have a full mesh. 
 
-We need to be able to encode and decode vocabulary into face vertices. `Vector3, Vector3, Vector3, [vertex node 1, vertex node 2, weight, ... up to 3 connections per face vertex]`
+We need to be able to encode and decode vocabulary into face vertices. `Vector3, Vector3, Vector3, [vertex node 0, vertex node 1, weight, ... up to 3 connections per face vertex]`
 
 | INDEX | EMBEDDING TYPE | DESCRIPTION                                                                       |
 | ----- | -------------- | --------------------------------------------------------------------------------- |
