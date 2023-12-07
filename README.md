@@ -130,15 +130,13 @@ This extension can be used to provide additional geometric information about a m
 
 ## Indexed Mesh Requirement
 
-For this extension to function correctly, the mesh must be indexed. An indexed mesh uses an array of indices to reference vertices, allowing for efficient reuse of vertex data and reducing the overall size of the mesh data.
+For this extension to function correctly, the mesh must be indexed.
 
 ## Normals
 
-Normals are required for each face of the mesh. A face is defined by three vertices. The normal of a face is a vector that is perpendicular to the plane of the face. In the above schema, normals are included in the `attributes` section of each primitive in the `meshes` array. The `NORMAL` attribute is an accessor index that points to the buffer view containing the normal data.
+Normals are required for each face of the mesh.
 
 ## Vertex and Face Sorting Scheme
-
-The vertex and face sorting scheme is a crucial part of the `VSEKAI_mesh_geometric_embedding` extension. It ensures that the geometric data is organized in a consistent and predictable manner, which is essential for efficient processing and accurate rendering.
 
 Vertices within each face are sorted first. The comparison function `compare_vertices` is used to sort an array of vertices. This function compares two vertices based on their z-coordinate first. If the z-coordinates are equal, it then compares the y-coordinates. If the y-coordinates are also equal, it finally compares the x-coordinates.
 
