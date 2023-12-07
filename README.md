@@ -176,3 +176,7 @@ def compare_faces(pair_a, pair_b):
 ```
 
 This sorting scheme ensures that the vertices and faces are ordered in a consistent manner, which is crucial for the correct functioning of the `VSEKAI_mesh_geometric_embedding` extension.
+
+## Embedding Vector Generation
+
+The suggested embedding scheme is using GraphSAGE graph convolution and operate on the face vertices on their connections to other faces via the weight of distance and the attributes of position, and face index.
