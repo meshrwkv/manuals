@@ -30,21 +30,21 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
   "extensions": {
     "EXT_structural_metadata": {
       "faceAttributes": {
-        "face_area": {
+        "faceArea": {
           "bufferView": 1,
           "byteOffset": 0,
           "componentType": 5126,
           "count": 4,
           "type": "SCALAR"
         },
-        "edge_angles": {
+        "edgeAngles": {
           "bufferView": 2,
           "byteOffset": 0,
           "componentType": 5126,
           "count": 12,
           "type": "VEC3"
         },
-        "embedding_vector": {
+        "embeddingVector": {
           "bufferView": 3,
           "byteOffset": 0,
           "componentType": 5126,
@@ -121,7 +121,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
 
 ## Extension Components
 
-- `faceAttributes`: Contains attributes related to the faces of the mesh. This includes `embedding_vector`.
+- `faceAttributes`: Contains attributes related to the faces of the mesh. This includes `embeddingVector`.
 - `faceMappings`: Maps face index values to their corresponding values in the `faceAttributes`.
 
 ## Usage
