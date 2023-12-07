@@ -18,16 +18,84 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
 
 ## Extension Schema
 
-```json
+````json
 {
   "asset": {
     "version": "2.0"
   },
   "extensionsUsed": [
-    "VSEKAI_mesh_geometric_embedding"
+    "VSEKAI_mesh_geometric_embedding",
+    "EXT_structural_metadata"
   ],
   "extensions": {
-    "VSEKAI_mesh_geometric_embedding": {}
+    "EXT_structural_metadata": {
+      "schema": {
+        "classes": {
+          "vertex": {
+            "name": "Vertex",
+            "description": "A vertex in a mesh.",
+            "properties": {
+              "POSITION_X": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "POSITION_Y": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "POSITION_Z": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "NORMAL_X": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "NORMAL_Y": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "NORMAL_Z": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "TANGENT_X": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "TANGENT_Y": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "TANGENT_Z": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "TANGENT_W": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "JOINT_INDEX": { "type": "SCALAR", "componentType": "UINT32" },
+              "JOINT_WEIGHT": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "FACE_AREA": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "ANGLE": { "type": "SCALAR", "componentType": "FLOAT32" }
+            }
+          },
+          "distance": {
+            "name": "Node Distance",
+            "description": "Distance between nodes.",
+            "properties": {
+              "NODE0_ID": { "type": "SCALAR", "componentType": "UINT32" },
+              "NODE1_ID": { "type": "SCALAR", "componentType": "UINT32" },
+              "WEIGHT": { "type": "SCALAR", "componentType": "FLOAT32" }
+            }
+          }
+        }
+      },
+      "propertyTables": [
+        {
+          "name": "face_vertex_attributes",
+          "class": "vertex",
+          "count": 14,
+          "properties": {
+            "POSITION_X": { "values": 0 },
+            "POSITION_Y": { "values": 1 },
+            "POSITION_Z": { "values": 2 },
+            "NORMAL_X": { "values": 3 },
+            "NORMAL_Y": { "values": 4 },
+            "NORMAL_Z": { "values": 5 },
+            "TANGENT_X": { "values": 6 },
+            "TANGENT_Y": { "values": 7 },
+            "TANGENT_Z": { "values": 8 },
+            "TANGENT_W": { "values": 9 },
+            "JOINT_INDEX": { "values": 10 },
+            "JOINT_WEIGHT": { "values": 11 },
+            "FACE_AREA": { "values": 12 },
+            "ANGLE": { "values": 13 }
+          }
+        },
+        {
+          "name": "node_distances",
+          "class": "distance",
+          "count": 2,
+          "properties": {
+            "NODE0_ID": { "values": 0 },
+            "NODE1_ID": { "values": 1 },
+            "WEIGHT": { "values": 1 }
+          }
+        }
+      ]
+    }
   },
   "nodes": [
     {
@@ -42,47 +110,14 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "POSITION": 0,
             "NORMAL": 1
           },
-          "indices": 2,
-          "extras": {
-            "VSEKAI_mesh_geometric_embedding": {
-              "faceAttributes": {
-                "faceArea": {
-                  "bufferView": 1,
-                  "byteOffset": 0,
-                  "componentType": 5126,
-                  "count": 4,
-                  "type": "SCALAR"
-                },
-                "edgeAngles": {
-                  "bufferView": 2,
-                  "byteOffset": 0,
-                  "componentType": 5126,
-                  "count": 12,
-                  "type": "VEC3"
-                },
-                "embeddingVector": {
-                  "bufferView": 3,
-                  "byteOffset": 0,
-                  "componentType": 5126,
-                  "count": 1536,
-                  "type": "VEC4"
-                }
-              },
-              "faceMappings": [
-                { "index": 0, "values": [0, 1, 2] },
-                { "index": 1, "values": [3, 4, 5] },
-                { "index": 2, "values": [6, 7, 8] },
-                { "index": 3, "values": [9, 10, 11] }
-              ]
-            }
-          }
+          "indices": 2
         }
       ]
     }
   ],
   "buffers": [
     {
-      "byteLength": 6144,
+      "byteLength": 12288,
       "uri": "external_file.bin"
     }
   ],
@@ -90,7 +125,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
     {
       "buffer": 0,
       "byteOffset": 0,
-      "byteLength": 6144
+      "byteLength": 12288
     }
   ],
   "accessors": [
@@ -119,7 +154,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
     }
   ]
 }
-```
+``
 
 ## Extension Components
 
@@ -180,9 +215,9 @@ func compare_faces(face_a, face_b):
         return 1
 
     return 0
-```
+````
 
-## Embedding Vector Generation
+## Face Vertex Attributes
 
 The procedure for creating embedding vectors leverages the GraphSAGE model. This model functions on sorted vertices and faces, taking into account their interconnections with other faces.
 
@@ -215,7 +250,3 @@ This approach is based on the MeshGPT method in "MeshGPT: Generating Triangle Me
 ```
 
 The face vertex encoder, embedding code book and token decoder are outside the scope of this specification.
-
-### Uninitialized Geometry Embedding
-
-When the geometry embedding is uninitialized we use a 128-dimensional zero vector, where all elements are set to `0`. This value is used as a placeholder until the actual embedding vectors are computed and filled in.
