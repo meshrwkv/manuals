@@ -50,7 +50,8 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
               "FACE_AREA": { "type": "SCALAR", "componentType": "FLOAT32" },
               "ANGLE": { "type": "SCALAR", "componentType": "FLOAT32" },
               "MESH_ID": { "type": "SCALAR", "componentType": "UINT32" },
-              "VERTEX_INDEX": { "type": "SCALAR", "componentType": "UINT32" }
+              "VERTEX_INDEX": { "type": "SCALAR", "componentType": "UINT32" },
+              "PRIMITIVE_ID": { "type": "SCALAR", "componentType": "UINT32" }
             }
           },
           "distance": {
@@ -60,7 +61,8 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
               "NODE0_ID": { "type": "SCALAR", "componentType": "UINT32" },
               "NODE1_ID": { "type": "SCALAR", "componentType": "UINT32" },
               "WEIGHT": { "type": "SCALAR", "componentType": "FLOAT32" },
-              "MESH_ID": { "type": "SCALAR", "componentType": "UINT32" }
+              "MESH_ID": { "type": "SCALAR", "componentType": "UINT32" },
+              "PRIMITIVE_ID": { "type": "SCALAR", "componentType": "UINT32" }
             }
           }
         }
@@ -87,6 +89,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "ANGLE": { "values": 13 },
             "MESH_ID": { "values": 14 },
             "VERTEX_INDEX": { "values": 15 }
+            "PRIMITIVE_ID": { "values": 16 },
           }
         },
         {
@@ -98,6 +101,7 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "NODE1_ID": { "values": 1 },
             "WEIGHT": { "values": 2 },
             "MESH_ID": { "values": 3 },
+            "PRIMITIVE_ID": { "values": 4 },
           }
         }
       ]
