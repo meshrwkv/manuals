@@ -1,0 +1,88 @@
+{
+  "asset": {
+    "version": "2.0"
+  },
+  "extensionsUsed": ["EXT_structural_metadata", "VSEKAI_mesh_geometric_embedding"],
+  "extensions": {
+    "EXT_structural_metadata": {
+      "faceAttributes": {
+        "face_area": {
+          "bufferView": 1,
+          "byteOffset": 0,
+          "componentType": 5126,
+          "count": 4, // 4 faces for a tetrahedron
+          "type": "SCALAR"
+        },
+        "edge_angles": {
+          "bufferView": 2,
+          "byteOffset": 0,
+          "componentType": 5126,
+          "count": 12, // 3 angles per face
+          "type": "VEC3"
+        }
+      },
+      "faceMappings": [
+        { "face": 0, "values": [0, 1, 2, 3] }, // map each face to its attributes
+        { "face": 1, "values": [4, 5, 6] },
+        { "face": 2, "values": [7, 8, 9] },
+        { "face": 3, "values": [10, 11, 12] }
+      ]
+    }
+  },
+  "nodes": [
+    {
+      "mesh": 0
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1
+          },
+          "indices": 2
+        }
+      ]
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 1024,
+      "uri": "data:application/octet-stream;base64,AAABAAIAAAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAAAAAAAAAAAIA/AAAAAAAAAAAA="
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteOffset": 0,
+      "byteLength": 1024
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 4, // 4 vertices for a tetrahedron
+      "type": "VEC3",
+      "max": [1.0, 1.0, 1.0],
+      "min": [-1.0, -1.0, -1.0]
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 96,
+      "componentType": 5126,
+      "count": 4, // 4 normals for a tetrahedron
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 192,
+      "componentType": 5123,
+      "count": 12, // 12 indices for a tetrahedron (3 per face)
+      "type": "SCALAR"
+    }
+  ]
+}
