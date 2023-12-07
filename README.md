@@ -190,12 +190,12 @@ The procedure for creating embedding vectors leverages the GraphSAGE model. This
 
 | INDEX | EMBEDDING TYPE  | DESCRIPTION                                                                                            |
 | ----- | --------------- | ------------------------------------------------------------------------------------------------------ |
-| 0     | `POSITION_X`    | The x-coordinate of the position vector                                                                |
-| 1     | `POSITION_Y`    | The y-coordinate of the position vector                                                                |
-| 2     | `POSITION_Z`    | The z-coordinate of the position vector                                                                |
-| 3     | `NORMAL_X`      | The X component of the normal vector associated with a vertex or face (part of a Vector3)              |
-| 4     | `NORMAL_Y`      | The Y component of the normal vector associated with a vertex or face (part of a Vector3)              |
-| 5     | `NORMAL_Z`      | The Z component of the normal vector associated with a vertex or face (part of a Vector3)              |
+| 0     | `POSITION_X`    | The x-coordinate of the position vector (part of a Vector3)                                            |
+| 1     | `POSITION_Y`    | The y-coordinate of the position vector (part of a Vector3)                                            |
+| 2     | `POSITION_Z`    | The z-coordinate of the position vector (part of a Vector3)                                            |
+| 3     | `NORMAL_X`      | The X component of the normal vector associated with a vertex (part of a Vector3)                      |
+| 4     | `NORMAL_Y`      | The Y component of the normal vector associated with a vertex (part of a Vector3)                      |
+| 5     | `NORMAL_Z`      | The Z component of the normal vector associated with a vertex (part of a Vector3)                      |
 | 6     | `TANGENT_X`     | The X component of the tangent vector at a vertex (part of a Vector4)                                  |
 | 7     | `TANGENT_Y`     | The Y component of the tangent vector at a vertex (part of a Vector4)                                  |
 | 8     | `TANGENT_Z`     | The Z component of the tangent vector at a vertex (part of a Vector4)                                  |
