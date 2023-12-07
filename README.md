@@ -59,7 +59,8 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
             "properties": {
               "NODE0_ID": { "type": "SCALAR", "componentType": "UINT32" },
               "NODE1_ID": { "type": "SCALAR", "componentType": "UINT32" },
-              "WEIGHT": { "type": "SCALAR", "componentType": "FLOAT32" }
+              "WEIGHT": { "type": "SCALAR", "componentType": "FLOAT32" },
+              "MESH_ID": { "type": "SCALAR", "componentType": "UINT32" }
             }
           }
         }
@@ -95,7 +96,8 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
           "properties": {
             "NODE0_ID": { "values": 0 },
             "NODE1_ID": { "values": 1 },
-            "WEIGHT": { "values": 1 }
+            "WEIGHT": { "values": 2 },
+            "MESH_ID": { "values": 3 },
           }
         }
       ]
