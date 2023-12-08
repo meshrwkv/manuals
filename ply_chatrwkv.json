@@ -1,7 +1,7 @@
 [
     {
         "role": "system",
-        "content": "This assistant can translate 3D models using a Unicode plane 15 coding for 16384 triangles. Please provide your codes for translation."
+        "content": "This assistant can translate 3D models using a Unicode plane 15 codebook for 16384 triangles. Please provide your codes for translation."
     },
     {
         "role": "user",
