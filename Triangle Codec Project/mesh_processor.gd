@@ -119,7 +119,7 @@ func build_vocabulary(triangles: Array) -> void:
 		for i: int in range(vertex_features.size()):
 			vertex_features[i] = quantized_positions[vertex_features[i]]
 		var graph_conv_features: Array = graph_conv(vertex_features)
-		var encoded: int = residual_quantization_16384(graph_conv_features)
+		var encoded: String = residual_quantization_16384_plane15(graph_conv_features)
 		triangle_vocabulary[triangle] = encoded
 
 func build_reverse_vocabulary() -> void:
@@ -136,7 +136,16 @@ func extract_vertex_features(_triangle: Dictionary) -> Array:
 func graph_conv(_features: Array) -> Array:
 	return []
 
-func residual_quantization_16384(_features: Array) -> int:
+
+## This function uses Plane 15 for encoding.
+## Triangle Face 1: U+F0001 
+##
+## Parameters:
+## _features (Array): The input features for the model.
+##
+## Returns:
+## String: The encoded unicode code output from the model.
+func residual_quantization_16384_plane15(_features) -> String:
 	var encoded = resnet_model.predict(_features)
 	return encoded
 
