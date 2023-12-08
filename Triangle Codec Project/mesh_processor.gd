@@ -3,6 +3,12 @@ class_name MeshGeometricProcessor
 var triangle_vocabulary: Dictionary = {}
 var reverse_vocabulary: Dictionary = {}
 
+class resnet:
+	func predict(_features: Array):
+		pass
+
+var resnet_model = resnet.new()
+
 func _init(triangles: Array) -> void:
 	build_vocabulary(triangles)
 	build_reverse_vocabulary()
@@ -47,9 +53,9 @@ func graph_conv(_features: Array) -> Array:
 	return []
 
 func residual_quantization(_features: Array) -> int:
-    # Assuming you have a pre-trained ResNet model loaded as resnet_model
-    var encoded = resnet_model.predict(_features)
-    return encoded
+	# Assuming you have a pre-trained ResNet model loaded as resnet_model
+	var encoded = resnet_model.predict(_features)
+	return encoded
 
 func get_encoded_vocabulary() -> Dictionary:
 	return triangle_vocabulary
