@@ -14,7 +14,7 @@ Written against the glTF 2.0 specification and the EXT_structural_metadata exten
 
 ## Overview
 
-The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0 specification. This extension provides additional geometric metadata for meshes, including face area, edge definition, edge area, and edge angles in radians. 
+The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0 specification. This extension provides additional geometric metadata for meshes, including face area, edge definition, edge area, and edge angles in radians.
 
 ## Extension Schema
 
@@ -235,32 +235,53 @@ func compare_faces(face_a, face_b):
         return 1
 
     return 0
-````
+```
 
 ## Face Vertex Attributes
 
 We want to teach large language models to use a language of face vertices as its language vocabulary.
 
-As we input face vertex tokens, the large language model auto completes more face vertices until we have a full mesh. 
+As we input face vertex tokens, the large language model auto completes more face vertices until we have a full mesh.
 
 We need to be able to encode and decode vocabulary into face vertices. `Vector3, Vector3, Vector3, [vertex node 0, vertex node 1, weight, ... up to 3 connections per face vertex]`
 
 | INDEX | EMBEDDING TYPE | DESCRIPTION                                                                       |
 | ----- | -------------- | --------------------------------------------------------------------------------- |
-| 0     | `POSITION_X`   | The x-coordinate of the position vector (part of a Vector3)                       |
-| 1     | `POSITION_Y`   | The y-coordinate of the position vector (part of a Vector3)                       |
-| 2     | `POSITION_Z`   | The z-coordinate of the position vector (part of a Vector3)                       |
-| 3     | `NORMAL_X`     | The X component of the normal vector associated with a vertex (part of a Vector3) |
-| 4     | `NORMAL_Y`     | The Y component of the normal vector associated with a vertex (part of a Vector3) |
-| 5     | `NORMAL_Z`     | The Z component of the normal vector associated with a vertex (part of a Vector3) |
-| 6     | `TANGENT_X`    | The X component of the tangent vector at a vertex (part of a Vector4)             |
-| 7     | `TANGENT_Y`    | The Y component of the tangent vector at a vertex (part of a Vector4)             |
-| 8     | `TANGENT_Z`    | The Z component of the tangent vector at a vertex (part of a Vector4)             |
-| 9     | `TANGENT_W`    | The W component of the tangent vector at a vertex (part of a Vector4)             |
-| 10    | `JOINT_INDEX`  | The index of a joint for a vertex                                                 |
-| 11    | `JOINT_WEIGHT` | The weight of influence a joint has on a vertex                                   |
-| 12    | `FACE_AREA`    | The area of the face defined by the vertices                                      |
-| 13    | `ANGLE`        | The angle at the vertex in radians                                                |
+| 0     | `VERTEX_INDEX` | The index of the vertex within its mesh                                           |
+| 1     | `MESH_ID`      | The ID of the mesh that the vertex belongs to                                     |
+| 2     | `PRIMITIVE_ID` | The ID of the primitive that the vertex belongs to                                |
+| 3     | `POSITION_X`   | The x-coordinate of the position vector (part of a Vector3)                       |
+| 4     | `POSITION_Y`   | The y-coordinate of the position vector (part of a Vector3)                       |
+| 5     | `POSITION_Z`   | The z-coordinate of the position vector (part of a Vector3)                       |
+| 6     | `NORMAL_X`     | The X component of the normal vector associated with a vertex (part of a Vector3) |
+| 7     | `NORMAL_Y`     | The Y component of the normal vector associated with a vertex (part of a Vector3) |
+| 8     | `NORMAL_Z`     | The Z component of the normal vector associated with a vertex (part of a Vector3) |
+| 9     | `TANGENT_X`    | The X component of the tangent vector at a vertex (part of a Vector4)             |
+| 10    | `TANGENT_Y`    | The Y component of the tangent vector at a vertex (part of a Vector4)             |
+| 11    | `TANGENT_Z`    | The Z component of the tangent vector at a vertex (part of a Vector4)             |
+| 12    | `TANGENT_W`    | The W component of the tangent vector at a vertex (part of a Vector4)             |
+| 13    | `JOINT_INDEX`  | The index of a joint for a vertex                                                 |
+| 14    | `JOINT_WEIGHT` | The weight of influence a joint has on a vertex                                   |
+| 15    | `FACE_AREA`    | The area of the face defined by the vertices                                      |
+| 16    | `ANGLE`        | The angle at the vertex in radians                                                |
+| 17    | `TEXCOORD_U`   | The U component of the texture coordinate associated with a vertex                 |
+| 18    | `TEXCOORD_V`   | The V component of the texture coordinate associated with a vertex                 |
+
+## Node Distance
+
+The node distance table represents the distances between different nodes in the mesh. Each row in the table corresponds to a pair of nodes and the weight of their connection.
+
+| INDEX | EMBEDDING TYPE | DESCRIPTION                                        |
+| ----- | -------------- | -------------------------------------------------- |
+| 0     | `NODE0_ID`     | The ID of the first node in the pair               |
+| 1     | `NODE1_ID`     | The ID of the second node in the pair              |
+| 2     | `WEIGHT`       | The weight of the connection between the two nodes |
+| 3     | `MESH_ID`      | The ID of the mesh that the nodes belong to        |
+| 4     | `PRIMITIVE_ID` | The ID of the primitive that the nodes belong to   |
+
+This approach allows us to represent the structure of the mesh in a compact and efficient way, which is crucial for large-scale applications such as 3D modeling and computer graphics.
+
+## Approach
 
 This approach is based on the MeshGPT method in [MeshGPT: Generating Triangle Meshes with Decoder-Only Transformers](https://nihalsid.github.io/mesh-gpt/).
 
