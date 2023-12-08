@@ -5,7 +5,7 @@
     },
     {
         "role": "user",
-        "content": "\\uD835\\uDC00\\uD835\\uDC01\\uD835\\uDC02\\uD835\\uDC03"
+        "content": "􀀀􀀁􀀂􀀃"
     },
     {
         "role": "assistant",
@@ -17,6 +17,6 @@
     },
     {
         "role": "assistant",
-        "content": "\\uD835\\uDC04\\uD835\\uDC05\\uD835\\uDC06\\uD835\\uDC07"
+        "content": "􀀄􀀅􀀆􀀇"
     }
 ]
