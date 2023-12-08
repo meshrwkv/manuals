@@ -5,18 +5,18 @@
     },
     {
         "role": "user",
-        "content": "U+1D400, U+1D401, U+1D402, U+1D403"
+        "content": "\\uD835\\uDC00\\uD835\\uDC01\\uD835\\uDC02\\uD835\\uDC03"
     },
     {
         "role": "assistant",
-        "content": "Translating your PLY model by 1 meter. Please wait a moment."
+        "content": "Translating your triangle mesh by 1 meter. Please wait a moment."
     },
     {
         "role": "system",
-        "content": "Translation complete. Here is your translated PLY model:"
+        "content": "Translation complete. Here is your translated triangle model:"
     },
     {
         "role": "assistant",
-        "content": "U+1D404, U+1D405, U+1D406, U+1D407"
+        "content": "\\uD835\\uDC04\\uD835\\uDC05\\uD835\\uDC06\\uD835\\uDC07"
     }
 ]
