@@ -9,9 +9,90 @@ class resnet:
 
 var resnet_model = resnet.new()
 
-func _init(triangles: Array) -> void:
+func compare_vertices(vertex_a, vertex_b):
+	if vertex_a.z < vertex_b.z:
+		return -1
+	elif vertex_a.z > vertex_b.z:
+		return 1
+	elif vertex_a.y < vertex_b.y:
+		return -1
+	elif vertex_a.y > vertex_b.y:
+		return 1
+	elif vertex_a.x < vertex_b.x:
+		return -1
+	elif vertex_a.x > vertex_b.x:
+		return 1
+
+	return 0
+
+func compare_faces(face_a, face_b):
+	for i in range(3):
+		var vertex_comparison = compare_vertices(face_a["vertices"][i], face_b["vertices"][i])
+		if vertex_comparison != 0:
+			return vertex_comparison
+
+	if "id" in face_a and "id" in face_b:
+		if face_a["id"] < face_b["id"]:
+			return -1
+		elif face_a["id"] > face_b["id"]:
+			return 1
+
+	return 0
+
+func _init(mesh: ArrayMesh) -> void:
+	var mesh_data_tool = MeshDataTool.new()
+	mesh_data_tool.create_from_surface(mesh, 0)
+
+	var triangles: Array = []
+
+	for i in range(0, mesh_data_tool.get_vertex_count(), 3):
+		var triangle = {
+			"vertices": [],
+			"normals": [],
+			"tangents": [],
+			"uvs": [],
+			"face_area": 0,
+			"angle": 0,
+			"tangent": Vector3.ZERO,
+			"id": i
+		}
+
+		for j in range(3):
+			var index = i + j
+			triangle["vertices"].append(mesh_data_tool.get_vertex(index))
+			triangle["normals"].append(mesh_data_tool.get_vertex_normal(index))
+			triangle["tangents"].append(mesh_data_tool.get_vertex_tangent(index))
+			triangle["uvs"].append(mesh_data_tool.get_vertex_uv(index))
+
+		triangle["face_area"] = calculate_face_area(triangle["vertices"])
+		triangle["angle"] = calculate_angle(triangle["vertices"])
+		triangle["tangent"] = calculate_tangent(triangle["vertices"])
+
+		triangles.append(triangle)
+
+	triangles.sort_custom(Callable(self, "compare_faces"))
+
 	build_vocabulary(triangles)
 	build_reverse_vocabulary()
+
+func calculate_face_area(vertices: Array) -> float:
+	var v0 = vertices[0]
+	var v1 = vertices[1]
+	var v2 = vertices[2]
+	return ((v1 - v0).cross(v2 - v0)).length() / 2.0
+
+func calculate_angle(vertices: Array) -> float:
+	var v0 = vertices[0] - vertices[1]
+	var v1 = vertices[2] - vertices[1]
+	return v0.angle_to(v1)
+
+func calculate_tangent(vertices: Array) -> Vector3:
+	var v0 = vertices[0]
+	var v1 = vertices[1]
+	var v2 = vertices[2]
+	var edge1 = v1 - v0
+	var edge2 = v2 - v0
+	return edge1.cross(edge2).normalized()
 
 func encode(triangle: Dictionary) -> int:
 	if triangle in triangle_vocabulary:
