@@ -1,4 +1,4 @@
-class_name MeshProcessor
+class_name MeshGeometricProcessor
 
 var triangle_vocabulary: Dictionary = {}
 var reverse_vocabulary: Dictionary = {}
@@ -6,6 +6,20 @@ var reverse_vocabulary: Dictionary = {}
 func _init(triangles: Array) -> void:
 	build_vocabulary(triangles)
 	build_reverse_vocabulary()
+
+func encode(triangle: Dictionary) -> int:
+	if triangle in triangle_vocabulary:
+		return triangle_vocabulary[triangle]
+	else:
+		print("Triangle not found in vocabulary.")
+		return -1
+
+func decode(vocab: int) -> Dictionary:
+	if vocab in reverse_vocabulary:
+		return reverse_vocabulary[vocab]
+	else:
+		print("Encoded value not found in reverse vocabulary.")
+		return {}
 
 func build_vocabulary(triangles: Array) -> void:
 	var aggregated_features: Dictionary = aggregate_vertex_features(triangles)
@@ -22,14 +36,20 @@ func build_reverse_vocabulary() -> void:
 	for key: Dictionary in triangle_vocabulary.keys():
 		reverse_vocabulary[triangle_vocabulary[key]] = key
 
-func extract_vertex_features(triangle: Dictionary) -> Array:
-	return [] 
+func extract_vertex_features(_triangle: Dictionary) -> Array:
+	var vertex_features: Array = []
+	for vertex: Dictionary in _triangle.values():
+		for feature: Array in vertex.values():
+			vertex_features.append(feature)
+	return vertex_features
 
-func graph_conv(features: Array) -> Array:
-	return []  
+func graph_conv(_features: Array) -> Array:
+	return []
 
-func residual_quantization(features: Array) -> int:
-	return 0 
+func residual_quantization(_features: Array) -> int:
+    # Assuming you have a pre-trained ResNet model loaded as resnet_model
+    var encoded = resnet_model.predict(_features)
+    return encoded
 
 func get_encoded_vocabulary() -> Dictionary:
 	return triangle_vocabulary
