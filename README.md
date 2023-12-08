@@ -181,6 +181,34 @@ The `VSEKAI_mesh_geometric_embedding` extension is an extension for the GLTF 2.0
 }
 ```
 
+## PLY Sample
+
+```
+ply
+format ascii 1.0
+comment This is a PLY file for a 3D simplex (tetrahedron)
+element vertex 4
+property float32 x
+property float32 y
+property float32 z
+property float32 nx
+property float32 ny
+property float32 nz
+element face 4
+property list uint8 int32 vertex_index
+property float32 FACE_AREA
+property float32 ANGLE
+end_header
+0 0 0 1 0 0
+1 0 0 0 1 0
+0 1 0 0 0 1
+0 0 1 -1 -1 -1
+3 0 1 2 12.0 13.0
+3 0 1 3 12.0 13.0
+3 0 2 3 12.0 13.0
+3 1 2 3 12.0 13.0
+```
+
 ## Usage
 
 This extension can be used to provide additional geometric information about a mesh, such as the embedding vector for each face index. The embedding vectors are particularly useful for large language models to parse the GLTF more efficiently.
