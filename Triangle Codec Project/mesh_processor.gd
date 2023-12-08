@@ -5,7 +5,10 @@ var reverse_vocabulary: Dictionary = {}
 
 class resnet:
 	func predict(_features: Array):
-		pass
+		var result = 0
+		for feature in _features:
+			result += feature # or any other operation you want to perform
+		return result
 
 var resnet_model = resnet.new()
 
@@ -116,7 +119,7 @@ func build_vocabulary(triangles: Array) -> void:
 		for i: int in range(vertex_features.size()):
 			vertex_features[i] = quantized_positions[vertex_features[i]]
 		var graph_conv_features: Array = graph_conv(vertex_features)
-		var encoded: int = residual_quantization(graph_conv_features)
+		var encoded: int = residual_quantization_16384(graph_conv_features)
 		triangle_vocabulary[triangle] = encoded
 
 func build_reverse_vocabulary() -> void:
@@ -133,8 +136,7 @@ func extract_vertex_features(_triangle: Dictionary) -> Array:
 func graph_conv(_features: Array) -> Array:
 	return []
 
-func residual_quantization(_features: Array) -> int:
-	# Assuming you have a pre-trained ResNet model loaded as resnet_model
+func residual_quantization_16384(_features: Array) -> int:
 	var encoded = resnet_model.predict(_features)
 	return encoded
 
