@@ -1,11 +1,11 @@
 [
     {
         "role": "system",
-        "content": "This assistant can translate 3D models in PLY format. Please provide your PLY model for translation."
+        "content": "This assistant can translate 3D models using a Unicode plane 15 coding for 16384 triangles. Please provide your codes for translation."
     },
     {
         "role": "user",
-        "content": "ply\n\nformat ascii 1.0\n\nelement geometry_embedding 4\nproperty int index\nproperty float gx\nproperty float gy\nproperty float gz\n\nelement vertex 4\nproperty float x\nproperty float y\nproperty float z\nproperty int geometry_embedding_index\n\nend_header\n\n0 -0.24 0.68 0.45\n1 0.35 -0.55 0.85\n2 -0.76 0.33 -0.12\n3 0.59 -0.47 -0.66\n\n0 0 0 0\n1 0 0 1\n0 1 0 2\n0 0 1 3"
+        "content": "U+1D400, U+1D401, U+1D402, U+1D403"
     },
     {
         "role": "assistant",
@@ -17,6 +17,6 @@
     },
     {
         "role": "assistant",
-        "content": "ply\n\nformat ascii 1.0\n\nelement geometry_embedding 4\nproperty int index\nproperty float gx\nproperty float gy\nproperty float gz\n\nelement vertex 4\nproperty float x\nproperty float y\nproperty float z\nproperty int geometry_embedding_index\n\nend_header\n\n1 -0.24 0.68 0.45\n2 0.35 -0.55 0.85\n1 -0.76 0.33 -0.12\n1 0.59 -0.47 -0.66\n\n0 1 0 0\n1 1 0 1\n0 2 0 2\n0 1 1 3"
+        "content": "U+1D404, U+1D405, U+1D406, U+1D407"
     }
 ]
